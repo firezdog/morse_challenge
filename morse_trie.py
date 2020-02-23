@@ -1,14 +1,15 @@
 # this is called a "trie" even though in fact it functions as a binary tree.
 class MorseTrie:
-    dot = None
-    dash = None
-    message = None
-    morse = ''
+    def __init__(self):
+        self.dot = None
+        self.dash = None
+        self.words = []
+        self.morse = ''
 
 morse_letters = {
     'A': '.-',
     'B': '-...',
-    'c': '-.-.',
+    'C': '-.-.',
     'D': '-..',
     'E': '.',
     'F': '..-.',
@@ -33,14 +34,14 @@ morse_letters = {
     'Y': '-.--',
     'Z': '--..'
 }
+root = MorseTrie()
 
 # assume 'word' is a string of uppercase letters
 def build_word_trie(word):
-    root = MorseTrie()
+    walker = root
     for char in word:
         translation = morse_letters[char]
         for tic in translation:
-            walker = root
             if tic == '.':
                 if walker.dot:
                     pass
@@ -55,7 +56,27 @@ def build_word_trie(word):
                     walker.dash = MorseTrie()
                     walker.dash.morse = walker.morse + '-'
                 walker = walker.dash
-    return root
+    walker.words.append(word)
 
-sample = build_word_trie('DOG')
-print('done')
+with open('top_words.txt', 'r') as popular_words:
+    for word in popular_words:
+        word = word.upper().strip()
+        build_word_trie(word)
+
+def translate_morse(morse):
+    walker = root
+    for tick in morse:
+        if tick == '-':
+            walker = walker.dash
+        if tick == '.':
+            walker = walker.dot
+        if walker is None:
+            print('translation not found')
+            return
+    if not walker.words:
+        print('translation not found')
+    else:
+        print(walker.words)
+
+translate_morse('......-...-..---')
+translate_morse('...---...-..')
