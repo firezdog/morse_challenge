@@ -58,7 +58,7 @@ def build_word_trie(word):
                 walker = walker.dash
     walker.words.append(word)
 
-with open('top_words.txt', 'r') as popular_words:
+with open('hundred_words.txt', 'r') as popular_words:
     for word in popular_words:
         word = word.upper().strip()
         build_word_trie(word)
