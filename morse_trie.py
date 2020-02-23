@@ -58,7 +58,7 @@ def build_word_trie(word):
                 walker = walker.dash
     walker.words.append(word)
 
-with open('hundred_words.txt', 'r') as popular_words:
+with open('top_words.txt', 'r') as popular_words:
     for word in popular_words:
         word = word.upper().strip()
         build_word_trie(word)
@@ -83,19 +83,16 @@ def parse_morse(morse):
     possible_interpretations = []
     finished_interpretations = []
     possible_interpretations.append([morse])
-    while possible_interpretations:
+    while len(possible_interpretations):
         walker = root
         interpretation_to_process = possible_interpretations.pop(0)
         morse_to_process = interpretation_to_process.pop(0)
-        print('length of morse to process: ', len(morse_to_process))
-        print('number of possible interpretations: ', len(possible_interpretations))
-        print('number of finished interpretations: ', len(finished_interpretations))
-        for index, tick in enumerate(morse):
+        for index, tick in enumerate(morse_to_process):
             if tick == '-':
                 walker = walker.dash
-                if walker and walker.words:
+                if walker and len(walker.words):
                     for word in walker.words:
-                        interpretation = interpretation_to_process[:]
+                        interpretation = list(interpretation_to_process)
                         interpretation.append(word)
                         interpretation.insert(0, morse_to_process[index + 1:])
                         if not morse_to_process[index + 1:]:
@@ -104,9 +101,9 @@ def parse_morse(morse):
                             possible_interpretations.append(interpretation)
             if tick == '.':
                 walker = walker.dot
-                if walker and walker.words:
+                if walker and len(walker.words):
                     for word in walker.words:
-                        interpretation = interpretation_to_process[:]
+                        interpretation = list(interpretation_to_process)
                         interpretation.append(word)
                         interpretation.insert(0, morse_to_process[index + 1:])
                         if not morse_to_process[index + 1:]:
@@ -115,7 +112,9 @@ def parse_morse(morse):
                             possible_interpretations.append(interpretation)
             if walker is None:
                 break
+        if (finished_interpretations):
+            print(finished_interpretations)
     print(finished_interpretations)
-    print(len(finished_interpretations))
 
-parse_morse('.')
+parse_morse('......-...-..---.-----.-..-..-..')
+print('done')

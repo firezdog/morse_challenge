@@ -24,6 +24,7 @@ give
 go
 have
 he
+hello
 her
 here
 him
@@ -98,3 +99,5 @@ would
 year
 you
 your
+work
+world
