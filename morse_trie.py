@@ -118,4 +118,4 @@ def parse_morse(morse):
     print(finished_interpretations)
     print(len(finished_interpretations))
 
-parse_morse('.-..-------.-.-....-.-.-')
+parse_morse('.')
