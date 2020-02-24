@@ -64,19 +64,19 @@ class MorseTranslator:
     @staticmethod
     def validate_grammar(interpretation):
         # keep small interpretations
-        if len(interpretation) < 4:
+        if len(interpretation) < 3:
             return True
         
         # length of words in an english sentence is on average 5
         sum = 0
         for word in interpretation:
             sum += len(word)
-        if sum / len(interpretation) < 4:
+        if sum / len(interpretation) < 5:
             return False
         
         # make sure interpretations start with a noun (very basic)
         parsed_tokens = nltk.pos_tag(interpretation)
-        if parsed_tokens[0][1] != 'NNP':
+        if parsed_tokens[0][1] not in ['NNP', 'DT']:
             return False 
 
         return True
