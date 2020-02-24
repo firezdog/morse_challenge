@@ -153,6 +153,7 @@ software
 then
 jan
 good
+goodbye
 video
 well
 d
@@ -2841,6 +2842,7 @@ kept
 alpha
 appeal
 cruise
+cruel
 bonus
 certification
 previously
@@ -9119,6 +9121,7 @@ wound
 belle
 rosa
 conviction
+vicious
 hash
 omissions
 writings
