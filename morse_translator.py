@@ -1,5 +1,3 @@
-import nltk
-
 from morse_trie import MorseTrie as _MorseTrie
 
 class MorseTranslator:
@@ -60,27 +58,21 @@ class MorseTranslator:
                 else:
                     if new_interpretation not in self.possible_interpretations:
                         self.possible_interpretations.append(new_interpretation)
-
+                
     @staticmethod
     def validate_grammar(interpretation):
         # keep small interpretations
-        if len(interpretation) < 4:
+        if len(interpretation) < 2:
             return True
         
-        # length of words in an english sentence is on average 5
+        # average length of words cannot be too small
         sum = 0
         for word in interpretation:
             sum += len(word)
-        if sum / len(interpretation) < 5:
+        if sum / len(interpretation) < 3:
             return False
         
-        # make sure interpretations start with a noun (very basic)
-        # this is an experimental feature...
-        # parsed_tokens = nltk.pos_tag(interpretation)
-        # if parsed_tokens[0][1] not in ['NNP']:
-        #     return False
-        #
-        # return True
+        return True
 
     def translate_morse(self, morse):
         walker = self.root
